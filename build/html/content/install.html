@@ -87,12 +87,12 @@ We highly recommend to use our docker for CBEngine</p>
 <section id="using-docker">
 <h2>Using docker<a class="headerlink" href="#using-docker" title="Permalink to this headline"></a></h2>
 <p>Pull our docker image of CBLab:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">huangzherui</span><span class="o">/</span><span class="n">cbengine</span><span class="p">:</span><span class="n">latest</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">pull</span> <span class="n">citybrainlab</span><span class="o">/</span><span class="n">cbengine</span><span class="p">:</span><span class="n">latest</span>
 </pre></div>
 </div>
 <p>Create a container with the docker image. <em>/path/to/your/folder</em> is the path of folder containing
 scripts and data for running the simulation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">CBLab_files</span><span class="p">:</span><span class="o">/</span><span class="n">CBLab_files</span> <span class="n">huangzherui</span><span class="o">/</span><span class="nb">open</span><span class="o">-</span><span class="n">engine</span><span class="p">:</span><span class="n">latest</span> <span class="n">bash</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">-</span><span class="n">it</span> <span class="o">-</span><span class="n">v</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">your</span><span class="o">/</span><span class="n">CBLab_files</span><span class="p">:</span><span class="o">/</span><span class="n">CBLab_files</span> <span class="n">citybrainlab</span><span class="o">/</span><span class="nb">open</span><span class="o">-</span><span class="n">engine</span><span class="p">:</span><span class="n">latest</span> <span class="n">bash</span>
 </pre></div>
 </div>
 <p>Now, start up the simulation in the container.</p>

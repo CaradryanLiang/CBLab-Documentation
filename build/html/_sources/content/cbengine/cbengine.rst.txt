@@ -64,14 +64,14 @@ Pull our docker image of CBLab:
 
 .. code-block::
 
-    docker pull huangzherui/cbengine:latest
+    docker pull citybrainlab/cbengine:latest
 
 Create a container with the docker image. */path/to/your/folder* is the path of folder containing
 scripts and data for running the simulation:
 
 .. code-block::
 
-    docker run -it -v /path/to/your/CBLab_files:/CBLab_files huangzherui/open-engine:latest bash
+    docker run -it -v /path/to/your/CBLab_files:/CBLab_files citybrainlab/open-engine:latest bash
 
 
 Now, start up the simulation in the container.
