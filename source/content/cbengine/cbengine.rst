@@ -10,7 +10,6 @@ vehicles.
 
 .. image:: ../media/imageonline-gifspeed-6207245.gif
    :align: center
-   :alt: fig_platform
 
 \ 
 
@@ -35,7 +34,6 @@ CBEngine iterates the state of every traffic elements with an optimized parallel
    :align: center
    :alt: fig_intro
           
-\ 
 \ 
 
 More advantages of CBEngine

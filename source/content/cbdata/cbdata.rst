@@ -25,7 +25,8 @@ Input data transformation
    :align: center
    :alt: fig_cbdata
 
-/
+
+\
 
 In this section, we demonstrate how to obtain large-scale input data for traffic simulation. 
 

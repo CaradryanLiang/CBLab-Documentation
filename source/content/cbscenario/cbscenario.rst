@@ -10,7 +10,7 @@ Design CBScenario
    :align: center
    :alt: fig_cbscenario
 
-/
+\
 
 The environment in CBScenario is designed to be hierarchical. A World object manages abstraction objects of traffic elements: Intersections (with traffic signals), Roads, Vehicles, and so on.  Every traffic element objects is bind with an agent. The default agent will do nothing to the traffic element. A traffic policy may use agents of several traffic elements to urge those elements on certain behaviors. For example, traffic signal control will modify the traffic signal at intersections. 
 
