@@ -17,7 +17,7 @@ City Brain Lab (CBLab) is a toolkit for scalable traffic simulation. CBLab consi
 CBData, and CBScenario, with which we make it possible to run large-scale traffic simulation on city-level road
 networks based on only raw traffic data.
 
-Now, the `code <https://github.com/CityBrainLab/CityBrainLab.git>` and the `dataset <https://drive.google.com/drive/folders/1IyTvWprOA1R_6PVkuh7v9R4xrHcZAmYT?usp=sharing>`
+Now, the `code <https://github.com/CityBrainLab/CityBrainLab.git>`_ and the `dataset <https://drive.google.com/drive/folders/1IyTvWprOA1R_6PVkuh7v9R4xrHcZAmYT?usp=sharing>`_
 are all available. Feel free to start your large-scale traffic simulation!
 
 \

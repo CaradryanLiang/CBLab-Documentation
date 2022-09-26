@@ -30,10 +30,10 @@ Input data transformation
 
 In this section, we demonstrate how to obtain large-scale input data for traffic simulation. 
 
-Our database is now available, including the raw road networks of 100 main cities around the world. 
-See the `Google Drive Link <https://drive.google.com/drive/folders/1IyTvWprOA1R_6PVkuh7v9R4xrHcZAmYT?usp=sharing>`.
+Our dataset is now available, including the raw road networks of 100 main cities around the world. 
+See the `Google Drive <https://drive.google.com/drive/folders/1IyTvWprOA1R_6PVkuh7v9R4xrHcZAmYT?usp=sharing>`_.
 
-In the database, the raw road network of one city consists of three files: 
+In the dataset, the raw road network of one city consists of three files: 
 
 .. code-block::
     

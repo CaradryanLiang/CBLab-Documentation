@@ -77,7 +77,7 @@ Now, start up the simulation in the container.
 
 Using source code
 ====================
-Our source code is available on `Github <https://github.com/CityBrainLab/CityBrainLab.git>` for Linux. Run the following
+Our source code is available on `Github <https://github.com/CityBrainLab/CityBrainLab.git>`_ for Linux. Run the following
 command to clone our repo:
 
 .. code-block::

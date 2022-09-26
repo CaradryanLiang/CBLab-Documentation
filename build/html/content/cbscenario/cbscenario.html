@@ -81,6 +81,7 @@
 <section id="design-cbscenario">
 <h2>Design CBScenario<a class="headerlink" href="#design-cbscenario" title="Permalink to this headline"></a></h2>
 <img alt="fig_cbscenario" class="align-center" src="../../_images/cbscenario.png" />
+<p></p>
 <p>The environment in CBScenario is designed to be hierarchical. A World object manages abstraction objects of traffic elements: Intersections (with traffic signals), Roads, Vehicles, and so on.  Every traffic element objects is bind with an agent. The default agent will do nothing to the traffic element. A traffic policy may use agents of several traffic elements to urge those elements on certain behaviors. For example, traffic signal control will modify the traffic signal at intersections.</p>
 <p>For each time step, traffic elements will firstly follow the command from their own agents, update their local features and help the World object to update the global features. Then, the World object computes some metrics for the traffic policy and returns it to the Environment object. The Environment object will summarize the metrics and respond to the agents. Finally, agents learn from the response and tell the traffic element what to do in the next time step.</p>
 </section>

@@ -41,10 +41,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">CBEngine</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#model-of-cbengine">Model of CBEngine</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1"></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#model-of-cbengine">Model of CBEngine</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#more-advantages-of-cbengine">More advantages of CBEngine</a></li>
 </ul>
 </li>
@@ -55,8 +52,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#demo-of-simulation">Demo of Simulation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#data-format">Data format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#demo-of-simulation">Demo of Simulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#start-up-the-demo">Start up the Demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#understand-the-demo">Understand the Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#data-format">Data format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-file-format">Configuration File Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#roadnet-file-format">Roadnet File Format</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flow-file-format">Flow File Format</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#api">API</a><ul>
@@ -66,8 +72,18 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-customization">Module Customization</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#driving-module">Driving Module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#routing-module">Routing Module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#driving-module">Driving Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#template">Template</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#routing-module">Routing Module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Data</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Template</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#deploy-the-customized-modules">Deploy the Customized Modules</a></li>
 </ul>
 </li>
@@ -108,7 +124,7 @@
 <p>CBEngine is a highly efficient microscopic traffic simulator. We support real time
 simulation of traffic system with more than 100,000 intersections and 1,000,000
 vehicles.</p>
-<img alt="fig_platform" class="align-center" src="../../_images/imageonline-gifspeed-6207245.gif" />
+<img alt="../../_images/imageonline-gifspeed-6207245.gif" class="align-center" src="../../_images/imageonline-gifspeed-6207245.gif" />
 <p></p>
 <section id="model-of-cbengine">
 <h3>Model of CBEngine<a class="headerlink" href="#model-of-cbengine" title="Permalink to this headline"></a></h3>
@@ -123,9 +139,7 @@ Its velocity at the next time step <cite>v_{t+1}</cite> is</p>
 <p>CBEngine iterates the state of every traffic elements with an optimized parallelization architecture
 , thus making the microscopic traffic simulation more efficient.</p>
 <img alt="fig_intro" class="align-center" src="../../_images/model.png" />
-<section id="id1">
-<h4><a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
-</section>
+<p></p>
 </section>
 <section id="more-advantages-of-cbengine">
 <h3>More advantages of CBEngine<a class="headerlink" href="#more-advantages-of-cbengine" title="Permalink to this headline"></a></h3>
@@ -160,7 +174,12 @@ scripts and data for running the simulation:</p>
 </section>
 <section id="using-source-code">
 <h3>Using source code<a class="headerlink" href="#using-source-code" title="Permalink to this headline"></a></h3>
-<p>Our <a class="reference external" href="https://drive.google.com/file/d/1v0A8QnuWQNqn8zDh3TXL69AIJmwVEspv/view?usp=sharing">source code</a> is available for Linux. To install CBEngine, unzip the file and
+<p>Our source code is available on <a class="reference external" href="https://github.com/CityBrainLab/CityBrainLab.git">Github</a> for Linux. Run the following
+command to clone our repo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">CityBrainLab</span><span class="o">/</span><span class="n">CityBrainLab</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>To install CBEngine, unzip the file and
 run the following command in the ‘CBLab/CBEngine/’ folder:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">core</span>
 <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">./</span>
@@ -169,7 +188,7 @@ run the following command in the ‘CBLab/CBEngine/’ folder:</p>
 <p>The installation will finish in seconds.</p>
 <p>For installation with source code, we recommend you to create a new environment as follows:</p>
 <ul class="simple">
-<li><p>Enter the folder ‘CBLab/’</p></li>
+<li><p>Enter the folder <em>CBLab/</em></p></li>
 <li><p>Run following commands:</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">cblab</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8</span>
@@ -223,10 +242,15 @@ run the following command in the ‘CBLab/CBEngine/’ folder:</p>
 <li><p><cite>roadnet.txt</cite> and <cite>flow.txt</cite> are data for simulation.</p></li>
 <li><p><cite>utils.py</cite> includes an utility class <cite>Dataloader</cite> used in simulation.</p></li>
 </ul>
+<section id="start-up-the-demo">
+<h4>Start up the Demo<a class="headerlink" href="#start-up-the-demo" title="Permalink to this headline"></a></h4>
 <p>Run the demo in the environment with CBEngine installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
+</section>
+<section id="understand-the-demo">
+<h4>Understand the Demo<a class="headerlink" href="#understand-the-demo" title="Permalink to this headline"></a></h4>
 <p>Firstly, we define some arguments for the simulation.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">roadnet_file</span> <span class="o">=</span> <span class="s1">&#39;./data/roadnet.txt&#39;</span>
 <span class="n">flow_file</span> <span class="o">=</span> <span class="s1">&#39;./data/flow.txt&#39;</span>
@@ -262,8 +286,11 @@ The length of one time step is 1 second as default.</p>
 </pre></div>
 </div>
 </section>
+</section>
 <section id="data-format">
 <h3>Data format<a class="headerlink" href="#data-format" title="Permalink to this headline"></a></h3>
+<section id="configuration-file-format">
+<h4>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline"></a></h4>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#configuration for simulator</span>
 
 <span class="c1"># Time Parameters</span>
@@ -289,6 +316,9 @@ The length of one time step is 1 second as default.</p>
 </div>
 <p>Normally, four arguments in <cite>Time Parameters</cite> and <cite>Data</cite> is common to be modified. You can change
 the value of these arguments to reassign the setting of your simulation.</p>
+</section>
+<section id="roadnet-file-format">
+<h4>Roadnet File Format<a class="headerlink" href="#roadnet-file-format" title="Permalink to this headline"></a></h4>
 <p>The road network file contains the following three data sections.</p>
 <ul>
 <li><dl>
@@ -477,6 +507,9 @@ Direction 1 is &lt;from_inter_id,to_inter_id&gt;. Direction 2 is &lt;to_inter_id
 <span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="c1">// inter_id, approach1_id, approach2_id, approach3_id, approach4_id</span>
 </pre></div>
 </div>
+</section>
+<section id="flow-file-format">
+<h4>Flow File Format<a class="headerlink" href="#flow-file-format" title="Permalink to this headline"></a></h4>
 <p>Flow file is composed by flows. Each flow is represented as a tuple (<em>start_time</em>, <em>end_time</em>, <em>vehicle_interval</em>, <em>route</em>), which means from <em>start_time</em> to <em>end_time</em>, there will be a vehicle with <em>route</em> every <em>vehicle_interval</em> seconds. The format of flows contains serval parts:</p>
 <ul>
 <li><p>The first row of flow file is <em>n</em>, which means the number of flow.</p></li>
@@ -546,6 +579,7 @@ Direction 1 is &lt;from_inter_id,to_inter_id&gt;. Direction 2 is &lt;to_inter_id
 <span class="mi">8</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
 </pre></div>
 </div>
+</section>
 </section>
 </section>
 <section id="api">
@@ -695,6 +729,8 @@ while this involves several classes as inputs and outputs of the module.</p>
 conditions in the road, including those vehicles around and traffic signals. In CBEngine, we
 abstract this module with a class and provide the following guidance to help users implement
 their own driving modules.</p>
+<section id="data">
+<h4>Data<a class="headerlink" href="#data" title="Permalink to this headline"></a></h4>
 <p>Various data should be taken into consideration when a driver decides the driving behaviours of
 a vehicle. CBEngine aggregates a lot of data visible to drivers in the real world for the
 driving modules. For customization, user can design driving modules which make use of it in
@@ -766,6 +802,9 @@ determining the driving behaviours.</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="template">
+<h4>Template<a class="headerlink" href="#template" title="Permalink to this headline"></a></h4>
 <p>We provide a template for users to implement their own driving modules. To customize the driving
 module, we mainly need to implement the <cite>ConductDriving</cite> function, which takes aforementioned data
 as inputs and returns a vector of <cite>VehicleAction</cite>.</p>
@@ -793,10 +832,16 @@ as inputs and returns a vector of <cite>VehicleAction</cite>.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="example">
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h4>
 <p>See source code in <cite>/src/modules/driving.cc</cite></p>
+</section>
 </section>
 <section id="routing-module">
 <h3>Routing Module<a class="headerlink" href="#routing-module" title="Permalink to this headline"></a></h3>
+<section id="id1">
+<h4>Data<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 22%" />
@@ -820,6 +865,9 @@ as inputs and returns a vector of <cite>VehicleAction</cite>.</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="id2">
+<h4>Template<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
 <p>We provide a template for users to implement their own driving modules. To customize the routing
 module, we mainly need to implement the <cite>ConductRouting</cite> function, which observes the overall
 conditions of the traffic and directly modify the route of the vehicle.</p>
@@ -847,7 +895,11 @@ conditions of the traffic and directly modify the route of the vehicle.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="id3">
+<h4>Example<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h4>
 <p>See source code in <cite>/src/modules/routing.cc</cite>.</p>
+</section>
 </section>
 <section id="deploy-the-customized-modules">
 <h3>Deploy the Customized Modules<a class="headerlink" href="#deploy-the-customized-modules" title="Permalink to this headline"></a></h3>
