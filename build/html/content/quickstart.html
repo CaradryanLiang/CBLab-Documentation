@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ch" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quick Start &mdash; CBEngine 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API" href="api.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> CBEngine
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#demo-of-simulation">Demo of Simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#start-up-the-demo">Start up the Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#understand-the-demo">Understand the Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-format">Data format</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#configuration-file-format">Configuration File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#roadnet-file-format">Roadnet File Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flow-file-format">Flow File Format</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Module Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CBEngine</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Quick Start</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/content/quickstart.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline"></a></h1>
+<section id="demo-of-simulation">
+<h2>Demo of Simulation<a class="headerlink" href="#demo-of-simulation" title="Permalink to this headline"></a></h2>
+<p>We provide a demo to start up the simplest version of our simulation in
+<cite>CBLab/CBEngine/test/</cite> of our <cite>source code &lt;&gt;</cite>.</p>
+<p>The structure of the simulation demo:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">|-</span><span class="n">test</span>
+    <span class="o">|-</span><span class="n">cfgs</span>
+        <span class="o">|-</span><span class="n">config</span><span class="o">.</span><span class="n">cfg</span><span class="p">:</span> <span class="n">configuration</span> <span class="n">file</span>
+    <span class="o">|-</span><span class="n">data</span>
+        <span class="o">|-</span><span class="n">roadnet</span><span class="o">.</span><span class="n">txt</span><span class="p">:</span> <span class="n">road</span> <span class="n">network</span> <span class="n">data</span> <span class="n">file</span>
+        <span class="o">|-</span><span class="n">flow</span><span class="o">.</span><span class="n">txt</span><span class="p">:</span> <span class="n">traffic</span> <span class="n">flow</span> <span class="n">data</span> <span class="n">file</span>
+    <span class="o">|-</span><span class="n">utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span> <span class="n">utilities</span> <span class="n">of</span> <span class="n">traffic</span> <span class="n">simulation</span>
+    <span class="o">|-</span><span class="n">main</span><span class="o">.</span><span class="n">py</span><span class="p">:</span> <span class="n">demo</span> <span class="n">script</span>
+</pre></div>
+</div>
+<p>Specifically,</p>
+<ul class="simple">
+<li><p><cite>config.cfg</cite> assigns the location of <cite>roadnet.txt</cite> and <cite>flow.txt</cite> and details some settings for CBEngine.</p></li>
+<li><p><cite>roadnet.txt</cite> and <cite>flow.txt</cite> are data for simulation.</p></li>
+<li><p><cite>utils.py</cite> includes an utility class <cite>Dataloader</cite> used in simulation.</p></li>
+</ul>
+<section id="start-up-the-demo">
+<h3>Start up the Demo<a class="headerlink" href="#start-up-the-demo" title="Permalink to this headline"></a></h3>
+<p>Run the demo in the environment with CBEngine installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+</section>
+<section id="understand-the-demo">
+<h3>Understand the Demo<a class="headerlink" href="#understand-the-demo" title="Permalink to this headline"></a></h3>
+<p>Firstly, we import some useful libraries. Note that <cite>utils</cite> is necessary for ANY simulation.
+You need to add the python file <cite>utils.py</cite> in the folder of your customization simulation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">cbengine</span>
+<span class="kn">from</span> <span class="nn">utils</span> <span class="kn">import</span> <span class="n">Dataloader</span>
+</pre></div>
+</div>
+<p>After that, we define some arguments for the simulation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">roadnet_file</span> <span class="o">=</span> <span class="s1">&#39;./data/roadnet.txt&#39;</span>
+<span class="n">flow_file</span> <span class="o">=</span> <span class="s1">&#39;./data/flow.txt&#39;</span>
+<span class="n">cfg_file</span> <span class="o">=</span> <span class="s1">&#39;./cfgs/config.cfg&#39;</span>
+<span class="n">dataloader</span> <span class="o">=</span> <span class="n">Dataloader</span><span class="p">(</span><span class="n">roadnet_file</span><span class="p">,</span> <span class="n">flow_file</span><span class="p">,</span> <span class="n">cfg_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>These arguments point out the path to the configuration file and two data files.</p>
+<p>Then, we create our simulator instance with the configuration file.
+<cite>cbengine.Engine(cfg_file, thread_num)</cite> returns a simulator object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">running_step</span> <span class="o">=</span> <span class="mi">300</span>                      <span class="c1"># simulation time</span>
+<span class="n">phase_time</span> <span class="o">=</span> <span class="mi">30</span>                         <span class="c1"># traffic signal phase duration time</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">cbengine</span><span class="o">.</span><span class="n">Engine</span><span class="p">(</span><span class="n">cfg_file</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>  <span class="c1"># create a simulator instance</span>
+</pre></div>
+</div>
+<p>Finally, we start up the simulation. <cite>engine.next_step()</cite> iterates the engine for one time step
+The length of one time step is 1 second as default.</p>
+<p>Moreover, we can access some information to observe the simulation and operate some traffic elements</p>
+<ul class="simple">
+<li><p><cite>engine.get_current_time()</cite>: return the current time in the simulation.</p></li>
+<li><p><cite>engine.set_ttl_phase(intersection_id, phase)</cite>: change the phase of the traffic signal in the intersection.</p></li>
+<li><p><cite>engine.get_vehicle_count()</cite>: return the current number of vehicles.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation starts ...&#39;</span><span class="p">)</span>
+<span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">running_step</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">intersection</span> <span class="ow">in</span> <span class="n">dataloader</span><span class="o">.</span><span class="n">intersections</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>                                            <span class="c1"># for each traffic signal</span>
+        <span class="n">engine</span><span class="o">.</span><span class="n">set_ttl_phase</span><span class="p">(</span><span class="n">intersection</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">engine</span><span class="o">.</span><span class="n">get_current_time</span><span class="p">())</span> <span class="o">//</span> <span class="n">phase_time</span><span class="p">)</span> <span class="o">%</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># change the phase of each traffic signal in the roadnet</span>
+    <span class="n">engine</span><span class="o">.</span><span class="n">next_step</span><span class="p">()</span>                                                                              <span class="c1"># iterate the simulation for one time step</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; time step: </span><span class="si">{}</span><span class="s2">, number of vehicles: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">step</span><span class="p">,</span> <span class="n">engine</span><span class="o">.</span><span class="n">get_vehicle_count</span><span class="p">()))</span>        <span class="c1"># get_vehicle_count() is an API to observe the number of vehicle</span>
+<span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation finishes. Runtime: &#39;</span><span class="p">,</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="data-format">
+<h2>Data format<a class="headerlink" href="#data-format" title="Permalink to this headline"></a></h2>
+<section id="configuration-file-format">
+<h3>Configuration File Format<a class="headerlink" href="#configuration-file-format" title="Permalink to this headline"></a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#configuration for simulator</span>
+
+<span class="c1"># Time Parameters</span>
+<span class="c1"># start time of simulation</span>
+<span class="n">start_time_epoch</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="c1"># the maximum end time of simulation</span>
+<span class="n">max_time_epoch</span> <span class="o">=</span> <span class="mi">3600</span>
+
+<span class="c1"># Data</span>
+<span class="c1"># road network data file address</span>
+<span class="n">road_file_addr</span> <span class="p">:</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">roadnet</span><span class="o">.</span><span class="n">txt</span>
+<span class="c1"># traffic flow data file address</span>
+<span class="n">vehicle_file_addr</span> <span class="p">:</span> <span class="o">./</span><span class="n">data</span><span class="o">/</span><span class="n">flow</span><span class="o">.</span><span class="n">txt</span>
+
+
+<span class="c1"># Log Trace</span>
+<span class="c1"># Log is for visualization only.</span>
+<span class="n">report_log_mode</span> <span class="p">:</span> <span class="n">normal</span>
+<span class="n">report_log_addr</span> <span class="p">:</span> <span class="o">./</span><span class="n">log</span><span class="o">/</span>
+<span class="n">report_log_rate</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">warning_stop_time_log</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>Normally, four arguments in <cite>Time Parameters</cite> and <cite>Data</cite> is common to be modified. You can change
+the value of these arguments to reassign the setting of your simulation.</p>
+</section>
+<section id="roadnet-file-format">
+<h3>Roadnet File Format<a class="headerlink" href="#roadnet-file-format" title="Permalink to this headline"></a></h3>
+<p>The road network file contains the following three data sections.</p>
+<ul>
+<li><dl>
+<dt>Intersection section</dt><dd><p>Intersection data consists of identification, location and traffic signal installation information about each intersection. A snippet of intersection dataset is shown below.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">92344</span> <span class="o">//</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">intersections</span>
+<span class="mf">30.2795476000</span> <span class="mf">120.1653304000</span> <span class="mi">25926073</span> <span class="mi">1</span> <span class="o">//</span><span class="n">latitude</span><span class="p">,</span> <span class="n">longitude</span><span class="p">,</span> <span class="n">inter_id</span><span class="p">,</span> <span class="n">signalized</span>
+<span class="mf">30.2801771000</span> <span class="mf">120.1664368000</span> <span class="mi">25926074</span> <span class="mi">0</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>The attributes of intersection dataset are described in details as below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 25%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute Name</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>latitude</p></td>
+<td><p>30.279547600</p></td>
+<td><p>local latitude</p></td>
+</tr>
+<tr class="row-odd"><td><p>longitude</p></td>
+<td><p>120.1653304000</p></td>
+<td><p>local longitude</p></td>
+</tr>
+<tr class="row-even"><td><p>inter_id</p></td>
+<td><p>25926073</p></td>
+<td><p>intersection ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>signalized</p></td>
+<td><p>1</p></td>
+<td><p>1 if traffic signal is installed, 0 otherwise</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Road section</dt><dd><p>Road dataset consists information about road segments in the network. In general, there are two directions on each road segment (i.e., dir1 and dir2). A snippet of road dataset is shown as follows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2105</span> <span class="o">//</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">road</span> <span class="n">segments</span>
+<span class="mi">28571560</span> <span class="mi">4353988632</span> <span class="mf">93.2000000000</span> <span class="mi">20</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">//</span> <span class="n">dir1_mov</span><span class="p">:</span> <span class="n">permissible</span> <span class="n">movements</span> <span class="n">of</span> <span class="n">direction</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span> <span class="o">//</span> <span class="n">dir2_mov</span><span class="p">:</span> <span class="n">permissible</span> <span class="n">movements</span> <span class="n">of</span> <span class="n">direction</span> <span class="mi">2</span>
+<span class="mi">28571565</span> <span class="mi">4886970741</span> <span class="mf">170.2000000000</span> <span class="mi">20</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">3</span> <span class="mi">4</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span>
+<span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">1</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>The attributes of road dataset are described in details as below.
+Direction 1 is &lt;from_inter_id,to_inter_id&gt;. Direction 2 is &lt;to_inter_id,from_inter_id&gt;.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute Name</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>from_inter_id</p></td>
+<td><p>28571560</p></td>
+<td><p>upstream intersection ID w.r.t. dir1</p></td>
+</tr>
+<tr class="row-odd"><td><p>to_inter_id</p></td>
+<td><p>4353988632</p></td>
+<td><p>downstream intersection ID w.r.t. dir1</p></td>
+</tr>
+<tr class="row-even"><td><p>length (m)</p></td>
+<td><p>93.2000000000</p></td>
+<td><p>length of road segment</p></td>
+</tr>
+<tr class="row-odd"><td><p>speed_limit (m/s)</p></td>
+<td><p>20</p></td>
+<td><p>speed limit of road segment</p></td>
+</tr>
+<tr class="row-even"><td><p>dir1_num_lane</p></td>
+<td><p>3</p></td>
+<td><p>number of lanes of direction 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>dir2_num_lane</p></td>
+<td><p>3</p></td>
+<td><p>number of lanes of direction 2</p></td>
+</tr>
+<tr class="row-even"><td><p>dir1_id</p></td>
+<td><p>1</p></td>
+<td><p>road segment (edge) ID of direction 1</p></td>
+</tr>
+<tr class="row-odd"><td><p>dir2_id</p></td>
+<td><p>2</p></td>
+<td><p>road segment (edge) ID of direction 2</p></td>
+</tr>
+<tr class="row-even"><td><p>dir1_mov</p></td>
+<td><p>1 0 0 0 1 0 0 1 1</p></td>
+<td><p>every 3 digits form a permissible movement indicator for a lane of direction 1, 100 indicates a left-turn only inner lane, 010 indicates through only middle lane, 011 indicates a shared through and right-turn outer lane.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dir2_mov</p></td>
+<td><p>1 0 0 0 1 0 0 1 1</p></td>
+<td><p>every 3 digits form a lane permissible movement indicator for a lane of direction 2.</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+<li><dl>
+<dt>Traffic signal section</dt><dd><p>This dataset describes the connectivity between intersection and road segments. Note that, we assume that each intersection has no more than four approaches. The exiting approaches 1 to 4 starting from the northern one and rotating in clockwise direction. Here, -1 indicates that the corresponding approach is missing, which generally indicates a three-leg intersection.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">107</span> <span class="o">//</span> <span class="n">total</span> <span class="n">number</span> <span class="n">of</span> <span class="n">signalized</span> <span class="n">intersections</span>
+<span class="mi">1317137908</span> <span class="mi">724</span> <span class="mi">700</span> <span class="mi">611</span> <span class="mi">609</span> <span class="o">//</span> <span class="n">inter_id</span><span class="p">,</span> <span class="n">approach1_id</span><span class="p">,</span> <span class="n">approach2_id</span><span class="p">,</span> <span class="n">approach3_id</span><span class="p">,</span> <span class="n">approach4_id</span>
+<span class="mi">672874599</span> <span class="mi">311</span> <span class="mi">2260</span> <span class="mi">3830</span> <span class="o">-</span><span class="mi">1</span> <span class="o">//</span> <span class="o">-</span><span class="mi">1</span> <span class="n">indicates</span> <span class="n">a</span> <span class="n">three</span><span class="o">-</span><span class="n">leg</span> <span class="n">intersection</span> <span class="n">without</span> <span class="n">western</span> <span class="n">approach</span>
+<span class="mi">672879594</span> <span class="mi">341</span> <span class="o">-</span><span class="mi">1</span> <span class="mi">2012</span> <span class="mi">339</span>
+</pre></div>
+</div>
+<p>The attributes of road dataset is described in details as below</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 82%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute Name</p></th>
+<th class="head"><p>Example</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>inter_id</p></td>
+<td><p>1317137908</p></td>
+<td><p>intersection ID</p></td>
+</tr>
+<tr class="row-odd"><td><p>approach1_id</p></td>
+<td><p>724</p></td>
+<td><p>road segment (edge) ID of northern exiting approach (Road_1 in example)</p></td>
+</tr>
+<tr class="row-even"><td><p>approach2_id</p></td>
+<td><p>700</p></td>
+<td><p>road segment (edge) ID of eastern exiting approach (Road_3 in example)</p></td>
+</tr>
+<tr class="row-odd"><td><p>approach3_id</p></td>
+<td><p>611</p></td>
+<td><p>road segment (edge) ID of southern exiting approach (Road_5 in example)</p></td>
+</tr>
+<tr class="row-even"><td><p>approach4_id</p></td>
+<td><p>609</p></td>
+<td><p>road segment (edge) ID of western exiting approach (Road_7 in example)</p></td>
+</tr>
+</tbody>
+</table>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Here is an example 1x1 roadnet <code class="docutils literal notranslate"><span class="pre">roadnet.txt</span></code> .</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="mi">5</span><span class="w"> </span><span class="c1">// intersection data</span>
+<span class="mi">30</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// latitude, longitude, inter_id, signalized</span>
+<span class="mi">31</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="mi">30</span><span class="w"> </span><span class="mi">121</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="mi">29</span><span class="w"> </span><span class="mi">120</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="mi">30</span><span class="w"> </span><span class="mi">119</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="mi">4</span><span class="w"> </span><span class="c1">// road data</span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// dir1_mov: permissible movements of direction 1</span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">// dir2_mov: permissible movements of direction 2</span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">4</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">6</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="mi">30</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="mi">8</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">1</span><span class="w"> </span><span class="c1">// traffic signal data</span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="c1">// inter_id, approach1_id, approach2_id, approach3_id, approach4_id</span>
+</pre></div>
+</div>
+</section>
+<section id="flow-file-format">
+<h3>Flow File Format<a class="headerlink" href="#flow-file-format" title="Permalink to this headline"></a></h3>
+<p>Flow file is composed by flows. Each flow is represented as a tuple (<em>start_time</em>, <em>end_time</em>, <em>vehicle_interval</em>, <em>route</em>), which means from <em>start_time</em> to <em>end_time</em>, there will be a vehicle with <em>route</em> every <em>vehicle_interval</em> seconds. The format of flows contains serval parts:</p>
+<ul>
+<li><p>The first row of flow file is <em>n</em>, which means the number of flow.</p></li>
+<li><p>The following <em>3n</em> rows indicating configuration of each flow. Each flow have 3 configuration lines.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The first row consists of <em>start_time</em>, <em>end_time</em>, <em>vehicle_interval</em>.</p></li>
+<li><p>The second row is the number of road segments of route for this flow : <em>k</em>.</p></li>
+<li><p>The third row describes the <cite>route</cite> of this flow. Here flow's route is defined by <cite>roads</cite> not <cite>intersections</cite>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">n</span><span class="w"></span>
+<span class="n">flow_1_start_time</span><span class="w">   </span><span class="n">flow_1_end_time</span><span class="w"> </span><span class="n">flow_1_interval</span><span class="w"></span>
+<span class="n">k_1</span><span class="w"></span>
+<span class="n">flow_1_route_0</span><span class="w">      </span><span class="n">flow_1_route_1</span><span class="w">  </span><span class="p">...</span><span class="w">     </span><span class="n">flow_1_route_k1</span><span class="w"></span>
+
+<span class="n">flow_2_start_time</span><span class="w">   </span><span class="n">flow_2_end_time</span><span class="w"> </span><span class="n">flow_2_interval</span><span class="w"></span>
+<span class="n">k_2</span><span class="w"></span>
+<span class="n">flow_2_route_0</span><span class="w">      </span><span class="n">flow_2_route_1</span><span class="w">  </span><span class="p">...</span><span class="w">     </span><span class="n">flow_2_route_k2</span><span class="w"></span>
+
+<span class="p">...</span><span class="w"></span>
+
+<span class="n">flow_n_start_time</span><span class="w">   </span><span class="n">flow_n_end_time</span><span class="w"> </span><span class="n">flow_n_interval</span><span class="w"></span>
+<span class="n">k_n</span><span class="w"></span>
+<span class="n">flow_n_route_0</span><span class="w">      </span><span class="n">flow_n_route_1</span><span class="w">  </span><span class="p">...</span><span class="w">     </span><span class="n">flow_n_route_k</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Here is an example flow file</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="mi">12</span><span class="w"> </span><span class="c1">// n = 12</span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c1">// start_time, end_time, vehicle_interval</span>
+<span class="mi">2</span><span class="w"> </span><span class="c1">// number of road segments</span>
+<span class="mi">2</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="c1">// road segment IDs</span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">2</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">2</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">4</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">4</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">4</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">6</span><span class="w"> </span><span class="mi">7</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">6</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">6</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">8</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">8</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="mi">0</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="mi">2</span><span class="w"></span>
+<span class="mi">8</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

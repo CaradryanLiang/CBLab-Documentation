@@ -1,0 +1,151 @@
+Module Customization
+====================
+
+An obvious characteristic of CBEngine is that it supports the user customization of two modules
+used in the simulation: driving module and routing module. We achieve this by abstracting these two
+modules in two concrete C++ classes and tune the structure of the simulator to make these clases 
+independent. Note that customization is only for CBEngine installed with source code.
+
+To conduct the module customization, we highly recommend you to read the source code of CBEngine, 
+while this involves several classes as inputs and outputs of the module.
+
+Driving Module
+------------------------------------------------
+Driving module describes how vehicles adjust their driving behaviours according to the traffic
+conditions in the road, including those vehicles around and traffic signals. In CBEngine, we
+abstract this module with a class and provide the following guidance to help users implement
+their own driving modules. 
+
+
+Data
+**************************
+
+Various data should be taken into consideration when a driver decides the driving behaviours of 
+a vehicle. CBEngine aggregates a lot of data visible to drivers in the real world for the
+driving modules. For customization, user can design driving modules which make use of it in
+determining the driving behaviours.
+
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| Data                         | Type                    | Description                                                                     |
++==============================+=========================+=================================================================================+
+| dis_to_signal\_              | double                  | Distance to the next signal                                                     |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| signal_remained_time\_       | double                  | Next signal green light remained time (Judging green light by signal_can_go\_)  |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| signal_can_go\_              | bool                    | Judging green light                                                             |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| next_signal\_                | const TrafficSignal*    | Information about the next signal                                               |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| dis_to_next_car\_            | double                  | Distance to the next vehicle in the lane                                        |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| next_car\_                   | const VehiclePlanned*   | Information about the next vehicle in the lane                                  |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| this_car\_                   | const VehiclePlanned*   | Information about this car                                                      |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| left_next_car\_              | const VehiclePlanned*   | Information about the next car in the left lane, similar in the right lane.     |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| left_last_car\_              | const VehiclePlanned*   | Information about the last car in the left lane, similar in the right lane.     |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| dis_to_left_next_car\_       | double                  | Distance to the next vehicle in the left lane, similar in the right lane.       |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| dis_to_left_last_car\_       | double                  | Distance to the last vehicle in the left lane, similar in the right lane.       |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| num_of_car_to_light\_        | std::vector<int>        | Number of car in front of this car to signal                                    |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| next_signal_direction\_      | Direction               | The status of the car at the next signal light (turn left, turn right, etc)     |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+
+Template
+**************************
+
+We provide a template for users to implement their own driving modules. To customize the driving
+module, we mainly need to implement the `ConductDriving` function, which takes aforementioned data
+as inputs and returns a vector of `VehicleAction`. 
+
+.. code-block::
+
+    #include "vehicle.h"
+
+    /*
+     * head file
+     */
+    class DrivingModule {
+    private:
+        const DrivingModule* data_;
+        ...
+    public:
+        DrivingModule(const DrivingModule* data):data_(data){};         // obtain all the data above
+        std::vector<VehicleAction> ConductDriving();                    // this is the virtual function to implement, do not rename this function
+        ...
+    }
+
+    /*
+     * source file
+     */
+    std::vector<VehicleAction> DrivingModule::ConductDriving() {        
+        double dis_to_next_car = data_->dis_to_next_car_;
+        ...
+    }
+
+Example
+**************************
+
+See source code in `/src/modules/driving.cc`
+
+
+Routing Module
+-------------------------
+
+Data
+**************************
+
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| Data                         | Type                    | Description                                                                     |
++==============================+=========================+=================================================================================+
+| roadnet\_                    | RoadNet                 | A vector of intersections and a graph of the roadnet                            |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+| vehicle_group\_              | VehicleGroup            | Including OD of all vehicles and the road all vehicles currently on             |
++------------------------------+-------------------------+---------------------------------------------------------------------------------+
+
+Template
+**************************
+
+We provide a template for users to implement their own driving modules. To customize the routing
+module, we mainly need to implement the `ConductRouting` function, which observes the overall 
+conditions of the traffic and directly modify the route of the vehicle.
+
+.. code-block::
+
+    #include "routing.h"
+
+    /*
+     * head file
+     */
+    class RoutingModule {
+    private:
+        const RoutingData* data_;
+        ...
+    public:
+        RoutingModule(const RoutingModule* data):data_(data){};         // obtain all the data above
+        void ConductRouting(std::vector<VehicleInfo> &vehicle);         // this is the virtual function to implement, do not rename this function
+        ...
+    }
+
+    /*
+     * source file
+     */
+    void RoutingModule::ConductRouting(std::vector<VehicleInfo> &vehicle) {
+        data_->compacted_graph_->FindShortestPath(from_id, to_id, is_spfa);
+        ...
+    }
+
+
+Example
+**************************
+See source code in `/src/modules/routing.cc`.
+
+Deploy the Customized Modules
+-----------------------------
+
+Cover the driving and routing modules in `/src/modules/driving.cc` and `/src/modules/routing.cc`.
+After that, build the project as the aforementioned installation guidance. 

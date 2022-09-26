@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBData &mdash; CBLab 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="CBScenario" href="../cbscenario/cbscenario.html" />
+    <link rel="prev" title="CBEngine" href="../cbengine/cbengine.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> CBLab
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cbengine/cbengine.html">CBEngine</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CBData</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-data-transformation">Input data transformation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#learning-driving-from-traffic-data">Learning driving from traffic data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#learning-routing-from-traffic-data">Learning routing from traffic data</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#functions-of-projects-in-each-folder">Functions of projects in each folder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#match-raw-trajectories-to-the-road-network">Match raw trajectories to the road network</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prepare">Prepare</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#build">Build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#match">Match</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#transform-matched-trajectories-to-unified-data">Transform matched trajectories to unified data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#learn-from-unified-data-with-rnn">Learn from unified data with RNN</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cbscenario/cbscenario.html">CBScenario</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CBLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>CBData</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/content/cbdata/cbdata.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cbdata">
+<h1>CBData<a class="headerlink" href="#cbdata" title="Permalink to this headline"></a></h1>
+<p>CBData is a data network to make use of traffic data in the traffic simulation. In the paper, we present the pipeline to transform raw road network data to simulation inputs and two paradigmatic pipelines to learn from other traffic data.</p>
+<p>Here, we demonstrate three pipelines.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Pipeline</p></th>
+<th class="head"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Input data transformation_</p></td>
+<td><p>Transform raw road network data to road network inputs and generate traffic flow inputs for simulation accordingly.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Learning driving_</p></td>
+<td><p>Tune driving behaviors of CBEngine according to road observation.</p></td>
+</tr>
+<tr class="row-even"><td><p>Learning routing_</p></td>
+<td><p>Learn to generate routes according to raw trajectory data and use it to generate traffic flow inputs for simulation.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="input-data-transformation">
+<h2>Input data transformation<a class="headerlink" href="#input-data-transformation" title="Permalink to this headline"></a></h2>
+<img alt="fig_cbdata" class="align-center" src="../../_images/paradigm.png" />
+<p>In this section, we demonstrate how to obtain large-scale input data for traffic simulation.</p>
+<p>We have released our database including the raw road networks of 100 main cities around the world. Google Drive Link:</p>
+<p>In the database, the raw road network of one city consists of three files:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">two</span> <span class="n">edge</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">edge1</span><span class="o">.</span><span class="n">csv</span>
+        <span class="n">edge2</span><span class="o">.</span><span class="n">csv</span>
+<span class="n">one</span> <span class="n">node</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">csv</span>
+</pre></div>
+</div>
+<p>The code in  <cite>/CBData/input_data_transformation</cite> is our implemented pipeline to transform the raw road network to the inputs for simulation.</p>
+<p>To begin with, put the three files in <cite>CBData/unify_data/roadnet/data</cite>.</p>
+<p>Run the following command at <cite>CBData/unify_data/roadnet/</cite> to conduct transformation.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">run</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The output road network data will be generated in the folder <cite>CBData/unify_data/roadnet/output</cite> with the name <cite>roadnet.txt</cite>.</p>
+<p>Meanwhile, an assistant file <cite>roadnet_dict.pkl</cite> is also generated. This file helps generate the traffic flow according to the road network.</p>
+<p>To generate the traffic flow accordingly, run the following command at <cite>CBData/unify_data</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="n">roadnet_dict</span><span class="o">.</span><span class="n">pkl</span> <span class="o">./</span><span class="n">flow</span><span class="o">/</span><span class="n">data</span><span class="o">/</span>
+<span class="n">cd</span> <span class="o">./</span><span class="n">flow</span>
+<span class="n">python</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">numveh</span> <span class="n">NUM_VEHICLES</span>
+</pre></div>
+</div>
+<p>The output traffic flow data will be generated in the folder <cite>CBData/unify_data/flow/output</cite> with the name <cite>CBEngine_flow.txt</cite>.  It is noted that we also generate two other traffic flow files of SUMO and Cityflow respectively, with the file name ` SUMO_flow.txt` and  <cite>Cityflow_flow.txt</cite>. Three files correspond to an identical traffic flow, only different in format.</p>
+<p>Now we have the complete inputs for traffic simulation with CBEngine:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Road</span> <span class="n">Network</span><span class="p">:</span> <span class="n">roadnet</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">Traffic</span> <span class="n">Flow</span><span class="p">:</span> <span class="n">CBEngine_flow</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+<section id="learning-driving-from-traffic-data">
+<h2>Learning driving from traffic data<a class="headerlink" href="#learning-driving-from-traffic-data" title="Permalink to this headline"></a></h2>
+<p>In this section, we demonstrate to tune the driving parameters in CBEngine using real world road observation. The tuning process is automatically implemented. Concretely, we run the simulation and count the average speed of vehicles on the road for a fixed time step. Then, we compare the speed to the real world observation. A black-box optimization tool is used to minimize the gap. By repeating the process, we tune the simulator to behave as the real world road observation.</p>
+<p>For tuning the parameter of the driving model, run this command at <cite>/CBData/learning_from_data/driving/</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">main</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>After the learning process ends up, optimized parameters are shown at the bottom of the terminal, which can be set for CBEngine before starting the simulation. The loss curve is at <cite>/CBData/learning_from_data/driving/figs/</cite>.</p>
+</section>
+<section id="learning-routing-from-traffic-data">
+<h2>Learning routing from traffic data<a class="headerlink" href="#learning-routing-from-traffic-data" title="Permalink to this headline"></a></h2>
+<p>In this section, we demonstrate the process how we learn to generate routes from one kind of raw trajectory data. The generated routes can be then transformed into inputs of CBEngine. Note that raw trajectory data can be in various formats. The data used in this experiments is in a common format: floating car format.</p>
+<section id="functions-of-projects-in-each-folder">
+<h3>Functions of projects in each folder<a class="headerlink" href="#functions-of-projects-in-each-folder" title="Permalink to this headline"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Folder</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>loss_counter_</p></td>
+<td><p>Count the loss of RNN model and draw the graph</p></td>
+</tr>
+<tr class="row-odd"><td><p>RNN             _</p></td>
+<td><p>Train RNN model and generate trajtories</p></td>
+</tr>
+<tr class="row-even"><td><p>roadnet-match_</p></td>
+<td><p>Transfer origin Shenzhen data to formatted data</p></td>
+</tr>
+<tr class="row-odd"><td><p>roadnet-process_</p></td>
+<td><p>Analyze data and generate RNN train data</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="match-raw-trajectories-to-the-road-network">
+<h3>Match raw trajectories to the road network<a class="headerlink" href="#match-raw-trajectories-to-the-road-network" title="Permalink to this headline"></a></h3>
+<p>In this section, we will preprocess the data with three steps. First, we will clean the data, where anomaly points are removed e.g. two sequential/consecutive points in one trajectory which stay very far from each other. Second, we match the cleaned data to the road network. Finally, we extract road-level observation from the processed trajectory data.  These processes are aggregated in the script <cite>roadnet-match</cite>.</p>
+<section id="prepare">
+<h4>Prepare<a class="headerlink" href="#prepare" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p>Open the root directory of the project.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">-</span><span class="n">match</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Make directories mentioned before.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">road</span> \
+<span class="n">mkdir</span> <span class="n">track</span> \
+<span class="n">mkdir</span> <span class="n">process</span> \
+<span class="n">mkdir</span> <span class="n">output</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Copy the roadnet to <cite>./road</cite> directory and name them <cite>Shenzhen-inter.txt</cite> and <cite>Shenzhen-inter.txt</cite>.</p></li>
+<li><p>Copy all of the original vehicle flow to <cite>./track</cite>.</p></li>
+</ol>
+</section>
+<section id="build">
+<h4>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p>Make a directory to build.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">build</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Get into <cite>./build</cite>.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">build</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Compile the project.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cmake</span> <span class="o">..</span> <span class="o">-</span><span class="n">G</span> <span class="s2">&quot;Unix Makefiles&quot;</span> \
+<span class="n">make</span>
+</pre></div>
+</div>
+</section>
+<section id="match">
+<h4>Match<a class="headerlink" href="#match" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p>Run the script.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">roadnet</span><span class="o">-</span><span class="n">match</span>
+</pre></div>
+</div>
+<p>Now we obtain the unified trajectory data. Specifically, cleaned data is in the folder <cite>/process</cite>, matched trajectory <cite>/output/vehicle</cite>, and road-level observation <cite>/output/road</cite>. These data will be used in the next section.</p>
+</section>
+</section>
+<section id="transform-matched-trajectories-to-unified-data">
+<h3>Transform matched trajectories to unified data<a class="headerlink" href="#transform-matched-trajectories-to-unified-data" title="Permalink to this headline"></a></h3>
+<p>RNN is used for learning from data and generating trajectories with a specified OD. To train the RNN model, we need to firstly transform data from the present format to RNN project format.</p>
+<ol class="arabic simple">
+<li><p>Open the root directory of the project.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">-</span><span class="n">process</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>make output directory.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">output</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Transform the roadnet from the present format to the format compatible to RNN project.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">CBEngine</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">trajGAIL</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Find an OD with maximum kinds of trajectories.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">flow</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">OD</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Find the entry and exit of the roadnet.</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">find</span><span class="o">-</span><span class="ow">in</span><span class="o">-</span><span class="n">out</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>Finally, place the data in <cite>./output</cite> to RNN project.</p>
+</section>
+<section id="learn-from-unified-data-with-rnn">
+<h3>Learn from unified data with RNN<a class="headerlink" href="#learn-from-unified-data-with-rnn" title="Permalink to this headline"></a></h3>
+<p>After we generated all the data that RNN project needs, we copy them to <cite>/data</cite> folder under <cite>./RNN</cite>. You can find 5 files under <cite>./roadnet-process/output</cite>, while four of them are needed to run RNN. However, if you don’t want to train your model, do not copy these files.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cp</span> <span class="o">-</span><span class="n">a</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">-</span><span class="n">process</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="n">Binomial</span><span class="o">.</span><span class="n">csv</span> <span class="o">./</span><span class="n">RNN</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">Single_OD</span><span class="o">/</span> \
+<span class="n">cp</span> <span class="o">-</span><span class="n">a</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">-</span><span class="n">process</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="n">net</span><span class="o">-</span><span class="ow">in</span><span class="o">.</span><span class="n">pkl</span> <span class="o">./</span><span class="n">RNN</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">Network_in_out</span><span class="o">/</span> \
+<span class="n">cp</span> <span class="o">-</span><span class="n">a</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">-</span><span class="n">process</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="n">net</span><span class="o">-</span><span class="n">out</span><span class="o">.</span><span class="n">pkl</span> <span class="o">./</span><span class="n">RNN</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">Network_in_out</span><span class="o">/</span> \
+<span class="n">cp</span> <span class="o">-</span><span class="n">a</span> <span class="o">./</span><span class="n">roadnet</span><span class="o">-</span><span class="n">process</span><span class="o">/</span><span class="n">output</span><span class="o">/</span><span class="n">Network</span><span class="o">.</span><span class="n">txt</span> <span class="o">./</span><span class="n">RNN</span><span class="o">/</span><span class="n">data</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Then, we can train RNN. If you want to try generating trajectories directly, you can skip this step and use the models provided with 0 and 980 epochs trained.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">./</span><span class="n">RNN</span> \
+<span class="n">python</span> <span class="o">./</span><span class="n">scripts</span><span class="o">/</span><span class="n">behavior_clone</span><span class="o">/</span><span class="n">run_bc_rnn</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The model will be saved under folder <cite>./Result/Single_OD</cite>.</p>
+<p>After we trained a model, we can use it to generate trajectories with specified OD.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">RNN_generator</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">trained</span><span class="o">-</span><span class="n">epoches</span> <span class="n">NUM_EPOCHS</span>
+</pre></div>
+</div>
+<p><em>NUM_EPOCHS</em> is the number in the name of the model in folder <cite>./Result/Single_OD</cite>. After that, you can check the generated trajectories under folder <cite>./Result/Generated_OD</cite>.</p>
+<p>Finally, we transform the generated routes to traffic flows in the standard input format of CBEngine, with parameters given in <cite>param.json</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">OD_to_flow</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>The traffic flow is in the <cite>./flow</cite>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../cbengine/cbengine.html" class="btn btn-neutral float-left" title="CBEngine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cbscenario/cbscenario.html" class="btn btn-neutral float-right" title="CBScenario" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

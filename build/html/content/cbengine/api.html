@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ch" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API &mdash; CBEngine 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> CBEngine
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#data-api">Data API</a></li>
+<li><a class="reference internal" href="#operating-api">Operating API</a></li>
+<li><a class="reference internal" href="#load-save-api">Load &amp; Save API</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CBEngine</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>API</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/content/cbengine/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api">
+<h1>API<a class="headerlink" href="#api" title="Permalink to this headline"></a></h1>
+<section id="data-api">
+<h2>Data API<a class="headerlink" href="#data-api" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 29%" />
+<col style="width: 13%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p>Returned value</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>get_vehicle_count()</p></td>
+<td><p>int</p></td>
+<td><p>The total number of running vehicle</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_vehicles()</p></td>
+<td><p>list</p></td>
+<td><p>A list of running vehicles' ids</p></td>
+</tr>
+<tr class="row-even"><td><p>get_lane_vehicle_count()</p></td>
+<td><p>dict</p></td>
+<td><p>A dict. Keys are lane_id, values are number of running vehicles on this lane</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_lane_vehicles()</p></td>
+<td><p>dict</p></td>
+<td><p>A dict. Keys are lane_id, values are a list of running vehicles on this lane</p></td>
+</tr>
+<tr class="row-even"><td><p>get_lane_waiting_vehicle_count()</p></td>
+<td><p>int</p></td>
+<td><p>A dict. Keys are lane_id, values are a list of waiting vehicles on this lane</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_vehicle_speed()</p></td>
+<td><p>float</p></td>
+<td><p>A dict. Keys are vehicle_id of running vehicles, values are their speed</p></td>
+</tr>
+<tr class="row-even"><td><p>get_average_travel_time()</p></td>
+<td><p>float</p></td>
+<td><p>The average travel time of both running vehicles and finished vehicles</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_vehicle_info(vehicle_id)</p></td>
+<td><p>dict</p></td>
+<td><p>Input vehicle_id, output the information of the vehicle as a dict</p></td>
+</tr>
+<tr class="row-even"><td><p>get_current_time()</p></td>
+<td><p>int</p></td>
+<td><p>Output the current time as an integer</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_road_speed_limit(road_id)</p></td>
+<td><p>float</p></td>
+<td><p>Input road_id, output the speed limit of the road as a float</p></td>
+</tr>
+<tr class="row-even"><td><p>get_car_following_params()</p></td>
+<td><p>dict</p></td>
+<td><p>Output the parameters of the driving module</p></td>
+</tr>
+<tr class="row-odd"><td><p>get_vehicle_route(vehicle_id)</p></td>
+<td><p>list</p></td>
+<td><p>Input vehicle_id, output the list of roads in the route</p></td>
+</tr>
+<tr class="row-even"><td><p>get_ttl_phase(intersection_id)</p></td>
+<td><p>int</p></td>
+<td><p>Input intersection_id, output the phase of its traffic signal as an integer</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="operating-api">
+<h2>Operating API<a class="headerlink" href="#operating-api" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 14%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p>Input type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>set_road_velocity(road_id, speed_limit)</p></td>
+<td><p>int, float</p></td>
+<td><p>Set the speed limit of a road</p></td>
+</tr>
+<tr class="row-odd"><td><p>set_car_following_params(params)</p></td>
+<td><p>dict</p></td>
+<td><p>Set the parameters in the driving module</p></td>
+</tr>
+<tr class="row-even"><td><p>set_vehicle_route(routes)</p></td>
+<td><p>list</p></td>
+<td><p>Set the route for a vehicle</p></td>
+</tr>
+<tr class="row-odd"><td><p>set_ttl_phase(int)</p></td>
+<td><p>int</p></td>
+<td><p>Set the traffic signal phase for an intersection</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="load-save-api">
+<h2>Load &amp; Save API<a class="headerlink" href="#load-save-api" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 14%" />
+<col style="width: 63%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>API</p></th>
+<th class="head"><p>Input type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>load_state(snapshot_path)</p></td>
+<td><p>string</p></td>
+<td><p>Load a snapshot of the simulation</p></td>
+</tr>
+<tr class="row-odd"><td><p>save_state(snapshot_path)</p></td>
+<td><p>string</p></td>
+<td><p>Save the current state of the simulation as a snapshot</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

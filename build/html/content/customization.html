@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ch" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module Customization &mdash; CBEngine 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="About" href="about.html" />
+    <link rel="prev" title="API" href="api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> CBEngine
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Module Customization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#driving-module">Driving Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#template">Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#routing-module">Routing Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Template</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deploy-the-customized-modules">Deploy the Customized Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CBEngine</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Module Customization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/content/customization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-customization">
+<h1>Module Customization<a class="headerlink" href="#module-customization" title="Permalink to this headline"></a></h1>
+<p>An obvious characteristic of CBEngine is that it supports the user customization of two modules
+used in the simulation: driving module and routing module. We achieve this by abstracting these two
+modules in two concrete C++ classes and tune the structure of the simulator to make these clases
+independent. Note that customization is only for CBEngine installed with source code.</p>
+<p>To conduct the module customization, we highly recommend you to read the source code of CBEngine,
+while this involves several classes as inputs and outputs of the module.</p>
+<section id="driving-module">
+<h2>Driving Module<a class="headerlink" href="#driving-module" title="Permalink to this headline"></a></h2>
+<p>Driving module describes how vehicles adjust their driving behaviours according to the traffic
+conditions in the road, including those vehicles around and traffic signals. In CBEngine, we
+abstract this module with a class and provide the following guidance to help users implement
+their own driving modules.</p>
+<section id="data">
+<h3>Data<a class="headerlink" href="#data" title="Permalink to this headline"></a></h3>
+<p>Various data should be taken into consideration when a driver decides the driving behaviours of
+a vehicle. CBEngine aggregates a lot of data visible to drivers in the real world for the
+driving modules. For customization, user can design driving modules which make use of it in
+determining the driving behaviours.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>dis_to_signal_</p></td>
+<td><p>double</p></td>
+<td><p>Distance to the next signal</p></td>
+</tr>
+<tr class="row-odd"><td><p>signal_remained_time_</p></td>
+<td><p>double</p></td>
+<td><p>Next signal green light remained time (Judging green light by signal_can_go_)</p></td>
+</tr>
+<tr class="row-even"><td><p>signal_can_go_</p></td>
+<td><p>bool</p></td>
+<td><p>Judging green light</p></td>
+</tr>
+<tr class="row-odd"><td><p>next_signal_</p></td>
+<td><p>const TrafficSignal*</p></td>
+<td><p>Information about the next signal</p></td>
+</tr>
+<tr class="row-even"><td><p>dis_to_next_car_</p></td>
+<td><p>double</p></td>
+<td><p>Distance to the next vehicle in the lane</p></td>
+</tr>
+<tr class="row-odd"><td><p>next_car_</p></td>
+<td><p>const VehiclePlanned*</p></td>
+<td><p>Information about the next vehicle in the lane</p></td>
+</tr>
+<tr class="row-even"><td><p>this_car_</p></td>
+<td><p>const VehiclePlanned*</p></td>
+<td><p>Information about this car</p></td>
+</tr>
+<tr class="row-odd"><td><p>left_next_car_</p></td>
+<td><p>const VehiclePlanned*</p></td>
+<td><p>Information about the next car in the left lane, similar in the right lane.</p></td>
+</tr>
+<tr class="row-even"><td><p>left_last_car_</p></td>
+<td><p>const VehiclePlanned*</p></td>
+<td><p>Information about the last car in the left lane, similar in the right lane.</p></td>
+</tr>
+<tr class="row-odd"><td><p>dis_to_left_next_car_</p></td>
+<td><p>double</p></td>
+<td><p>Distance to the next vehicle in the left lane, similar in the right lane.</p></td>
+</tr>
+<tr class="row-even"><td><p>dis_to_left_last_car_</p></td>
+<td><p>double</p></td>
+<td><p>Distance to the last vehicle in the left lane, similar in the right lane.</p></td>
+</tr>
+<tr class="row-odd"><td><p>num_of_car_to_light_</p></td>
+<td><p>std::vector&lt;int&gt;</p></td>
+<td><p>Number of car in front of this car to signal</p></td>
+</tr>
+<tr class="row-even"><td><p>next_signal_direction_</p></td>
+<td><p>Direction</p></td>
+<td><p>The status of the car at the next signal light (turn left, turn right, etc)</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="template">
+<h3>Template<a class="headerlink" href="#template" title="Permalink to this headline"></a></h3>
+<p>We provide a template for users to implement their own driving modules. To customize the driving
+module, we mainly need to implement the <cite>ConductDriving</cite> function, which takes aforementioned data
+as inputs and returns a vector of <cite>VehicleAction</cite>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &quot;vehicle.h&quot;</span>
+
+<span class="o">/*</span>
+ <span class="o">*</span> <span class="n">head</span> <span class="n">file</span>
+ <span class="o">*/</span>
+<span class="k">class</span> <span class="nc">DrivingModule</span> <span class="p">{</span>
+<span class="n">private</span><span class="p">:</span>
+    <span class="n">const</span> <span class="n">DrivingModule</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span>
+    <span class="o">...</span>
+<span class="n">public</span><span class="p">:</span>
+    <span class="n">DrivingModule</span><span class="p">(</span><span class="n">const</span> <span class="n">DrivingModule</span><span class="o">*</span> <span class="n">data</span><span class="p">):</span><span class="n">data_</span><span class="p">(</span><span class="n">data</span><span class="p">){};</span>         <span class="o">//</span> <span class="n">obtain</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">data</span> <span class="n">above</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">VehicleAction</span><span class="o">&gt;</span> <span class="n">ConductDriving</span><span class="p">();</span>                    <span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">virtual</span> <span class="n">function</span> <span class="n">to</span> <span class="n">implement</span><span class="p">,</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">rename</span> <span class="n">this</span> <span class="n">function</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="o">/*</span>
+ <span class="o">*</span> <span class="n">source</span> <span class="n">file</span>
+ <span class="o">*/</span>
+<span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">VehicleAction</span><span class="o">&gt;</span> <span class="n">DrivingModule</span><span class="p">::</span><span class="n">ConductDriving</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">double</span> <span class="n">dis_to_next_car</span> <span class="o">=</span> <span class="n">data_</span><span class="o">-&gt;</span><span class="n">dis_to_next_car_</span><span class="p">;</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline"></a></h3>
+<p>See source code in <cite>/src/modules/driving.cc</cite></p>
+</section>
+</section>
+<section id="routing-module">
+<h2>Routing Module<a class="headerlink" href="#routing-module" title="Permalink to this headline"></a></h2>
+<section id="id1">
+<h3>Data<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 18%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>roadnet_</p></td>
+<td><p>RoadNet</p></td>
+<td><p>A vector of intersections and a graph of the roadnet</p></td>
+</tr>
+<tr class="row-odd"><td><p>vehicle_group_</p></td>
+<td><p>VehicleGroup</p></td>
+<td><p>Including OD of all vehicles and the road all vehicles currently on</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id2">
+<h3>Template<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<p>We provide a template for users to implement their own driving modules. To customize the routing
+module, we mainly need to implement the <cite>ConductRouting</cite> function, which observes the overall
+conditions of the traffic and directly modify the route of the vehicle.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#include &quot;routing.h&quot;</span>
+
+<span class="o">/*</span>
+ <span class="o">*</span> <span class="n">head</span> <span class="n">file</span>
+ <span class="o">*/</span>
+<span class="k">class</span> <span class="nc">RoutingModule</span> <span class="p">{</span>
+<span class="n">private</span><span class="p">:</span>
+    <span class="n">const</span> <span class="n">RoutingData</span><span class="o">*</span> <span class="n">data_</span><span class="p">;</span>
+    <span class="o">...</span>
+<span class="n">public</span><span class="p">:</span>
+    <span class="n">RoutingModule</span><span class="p">(</span><span class="n">const</span> <span class="n">RoutingModule</span><span class="o">*</span> <span class="n">data</span><span class="p">):</span><span class="n">data_</span><span class="p">(</span><span class="n">data</span><span class="p">){};</span>         <span class="o">//</span> <span class="n">obtain</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">data</span> <span class="n">above</span>
+    <span class="n">void</span> <span class="n">ConductRouting</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">VehicleInfo</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">vehicle</span><span class="p">);</span>         <span class="o">//</span> <span class="n">this</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">virtual</span> <span class="n">function</span> <span class="n">to</span> <span class="n">implement</span><span class="p">,</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">rename</span> <span class="n">this</span> <span class="n">function</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="o">/*</span>
+ <span class="o">*</span> <span class="n">source</span> <span class="n">file</span>
+ <span class="o">*/</span>
+<span class="n">void</span> <span class="n">RoutingModule</span><span class="p">::</span><span class="n">ConductRouting</span><span class="p">(</span><span class="n">std</span><span class="p">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">VehicleInfo</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">vehicle</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">data_</span><span class="o">-&gt;</span><span class="n">compacted_graph_</span><span class="o">-&gt;</span><span class="n">FindShortestPath</span><span class="p">(</span><span class="n">from_id</span><span class="p">,</span> <span class="n">to_id</span><span class="p">,</span> <span class="n">is_spfa</span><span class="p">);</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Example<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<p>See source code in <cite>/src/modules/routing.cc</cite>.</p>
+</section>
+</section>
+<section id="deploy-the-customized-modules">
+<h2>Deploy the Customized Modules<a class="headerlink" href="#deploy-the-customized-modules" title="Permalink to this headline"></a></h2>
+<p>Cover the driving and routing modules in <cite>/src/modules/driving.cc</cite> and <cite>/src/modules/routing.cc</cite>.
+After that, build the project as the aforementioned installation guidance.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="about.html" class="btn btn-neutral float-right" title="About" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+Installation
+==================
+
+CBEngine is packed as a python package `cbengine` and can be imported in python with:
+
+.. code-block::
+
+    import cbengine
+
+CBEngine provides two approaches for installation: with docker and with source code. 
+We highly recommend to use our docker for CBEngine
+
+Using docker
+------------------
+Pull our docker image of CBLab:
+
+.. code-block::
+
+    docker pull huangzherui/cbengine:latest
+
+Create a container with the docker image. */path/to/your/folder* is the path of folder containing
+scripts and data for running the simulation:
+
+.. code-block::
+
+    docker run -it -v /path/to/your/CBLab_files:/CBLab_files huangzherui/open-engine:latest bash
+
+
+Now, start up the simulation in the container.
+
+
+Using source code
+------------------
+Our `source code <https://drive.google.com/file/d/1v0A8QnuWQNqn8zDh3TXL69AIJmwVEspv/view?usp=sharing>`_ is available for Linux. To install CBEngine, unzip the file and 
+run the following command in the 'CBLab/CBEngine/' folder:
+
+.. code-block::
+
+    cd ./core
+    pip install -e ./
+
+The installation will finish in seconds.
+
+For installation with source code, we recommend you to create a new environment as follows:
+
+- Enter the folder 'CBLab/'
+- Run following commands:
+
+.. code-block::
+
+    conda create -n cblab python=3.8
+	conda activate cblab
+	pip install -r requirments.txt
+
+
+Test the installation
+---------------------
+
+We provide our test 
+- Enter the folder 'CBLab/CBEngine/test/'
+- Run the following command: `python main.py`
+- If it outputs as follows, the installation is successfully completed:
+
+.. code-block::
+
+    t: 0, v: 14
+    t: 1, v: 30
+    t: 2, v: 43
+    t: 3, v: 63
+    t: 4, v: 78
+    t: 5, v: 92
+    t: 6, v: 112
+    t: 7, v: 129
+    t: 8, v: 147
+    t: 9, v: 167
+    t: 10, v: 187
+    ...

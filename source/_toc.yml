@@ -1,0 +1,19 @@
+format: jb-book
+root: index
+parts:
+  - caption: Overview
+    chapters:
+      - file: index
+
+  - caption: CBEngine
+    chapters:
+    - file: content/cbengine/cbengine.rst
+    - file: content/cbengine/quickstart.rst
+    - file: content/cbengine/install.rst
+    - file: content/cbengine/customization.rst
+    - file: content/cbengine/api.rst
+
+  - caption: CBData
+    chapters:
+    - file: content/cbdata/cbdata.rst
+    

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBScenario &mdash; CBLab 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="CBData" href="../cbdata/cbdata.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> CBLab
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../cbengine/cbengine.html">CBEngine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cbdata/cbdata.html">CBData</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CBScenario</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-cbscenario">Design CBScenario</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-the-benchmark">Run the benchmark</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scenario-1-traffic-signal-control">Scenario 1 (Traffic Signal Control)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scenario-2-congestion-pricing">Scenario 2 (Congestion Pricing)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CBLab</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>CBScenario</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/content/cbscenario/cbscenario.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cbscenario">
+<h1>CBScenario<a class="headerlink" href="#cbscenario" title="Permalink to this headline"></a></h1>
+<p>Based on our large-scale traffic simulation, CBScenario implements a benchmark for two classical scenarios of traffic policies: Traffic Signal Control and Congestion Pricing. Two scenarios share the same interactive python environment. In this profile, we firstly introduce the design of the environment. This is to help users understand CBScenario and develop new own scenarios accordingly. Then, we show how to run the simple benchmark for two existing scenarios.</p>
+<section id="design-cbscenario">
+<h2>Design CBScenario<a class="headerlink" href="#design-cbscenario" title="Permalink to this headline"></a></h2>
+<img alt="fig_cbscenario" class="align-center" src="../../_images/cbscenario.png" />
+<p>The environment in CBScenario is designed to be hierarchical. A World object manages abstraction objects of traffic elements: Intersections (with traffic signals), Roads, Vehicles, and so on.  Every traffic element objects is bind with an agent. The default agent will do nothing to the traffic element. A traffic policy may use agents of several traffic elements to urge those elements on certain behaviors. For example, traffic signal control will modify the traffic signal at intersections.</p>
+<p>For each time step, traffic elements will firstly follow the command from their own agents, update their local features and help the World object to update the global features. Then, the World object computes some metrics for the traffic policy and returns it to the Environment object. The Environment object will summarize the metrics and respond to the agents. Finally, agents learn from the response and tell the traffic element what to do in the next time step.</p>
+</section>
+<section id="run-the-benchmark">
+<h2>Run the benchmark<a class="headerlink" href="#run-the-benchmark" title="Permalink to this headline"></a></h2>
+<section id="scenario-1-traffic-signal-control">
+<h3>Scenario 1 (Traffic Signal Control)<a class="headerlink" href="#scenario-1-traffic-signal-control" title="Permalink to this headline"></a></h3>
+<p>This scenario locates at <cite>/scenarios/1_traffic_signal_control/</cite>. To run a baseline, we need to assign some arguments. Concretely, we show the commands to run baselines on Hangzhou dataset as our example.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">run_fixed_time</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">python</span> <span class="n">run_maxpressure</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">python</span> <span class="n">run_sotl</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">python</span> <span class="n">run_dqn</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span> <span class="o">--</span><span class="n">save_dir</span> <span class="o">./</span><span class="n">model</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">dqn</span> <span class="o">--</span><span class="n">log_dir</span> <span class="o">./</span><span class="n">log</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">dqn</span>
+</pre></div>
+</div>
+<p>The result can be found in <cite>./train_log/</cite>.</p>
+<p>Specifically, to evaluate DQN (and other possible learning-based methods in the future), we run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">test_dqn</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span> <span class="o">--</span><span class="n">save_dir</span> <span class="o">./</span><span class="n">model</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">dqn</span> <span class="o">--</span><span class="n">log_dir</span> <span class="o">./</span><span class="n">log</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">dqn</span>
+</pre></div>
+</div>
+<p>The result can be found in <cite>./test_log/</cite>.</p>
+</section>
+<section id="scenario-2-congestion-pricing">
+<h3>Scenario 2 (Congestion Pricing)<a class="headerlink" href="#scenario-2-congestion-pricing" title="Permalink to this headline"></a></h3>
+<p>This scenario locates at <cite>/scenarios/2_congestion_pricing/</cite>. Similarly, we show the commands to run baselines on the Hangzhou dataset.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">run_nochange</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">python</span> <span class="n">run_arbitrary</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">python</span> <span class="n">run_deltatoll</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+<span class="n">python</span> <span class="n">run_egcn</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span>
+</pre></div>
+</div>
+<p>The result can be found in <cite>./train_log/</cite>.</p>
+<p>Specifically, to evaluate eGCN (and other possible learning-based methods in the future), we run the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">test_egcn</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">config_hangzhou</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">engine_config_file</span> <span class="o">./</span><span class="n">dataset</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">/</span><span class="n">hangzhou</span><span class="o">.</span><span class="n">cfg</span> <span class="o">--</span><span class="n">weight_file</span> <span class="n">MODEL_PATH</span>
+</pre></div>
+</div>
+<p>The result can be found in <cite>./test_log/</cite>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../cbdata/cbdata.html" class="btn btn-neutral float-left" title="CBData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, CBLab.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

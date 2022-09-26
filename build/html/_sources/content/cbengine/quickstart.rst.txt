@@ -1,0 +1,335 @@
+Quick Start
+===================
+
+Demo of Simulation
+---------------------------------------------
+We provide a demo to start up the simplest version of our simulation in 
+`CBLab/CBEngine/test/` of our `source code <>`. 
+
+The structure of the simulation demo:
+
+.. code-block::
+
+    |-test
+        |-cfgs
+            |-config.cfg: configuration file
+        |-data
+            |-roadnet.txt: road network data file
+            |-flow.txt: traffic flow data file
+        |-utils.py: utilities of traffic simulation
+        |-main.py: demo script
+
+
+Specifically,
+
+- `config.cfg` assigns the location of `roadnet.txt` and `flow.txt` and details some settings for CBEngine.
+- `roadnet.txt` and `flow.txt` are data for simulation.
+- `utils.py` includes an utility class `Dataloader` used in simulation.
+
+Start up the Demo
+**************************
+
+Run the demo in the environment with CBEngine installed:
+
+.. code-block::
+
+    python main.py
+
+
+Understand the Demo
+**************************
+
+Firstly, we import some useful libraries. Note that `utils` is necessary for ANY simulation.
+You need to add the python file `utils.py` in the folder of your customization simulation. 
+
+.. code-block::
+
+    import os, sys
+    import time
+    import cbengine
+    from utils import Dataloader
+
+After that, we define some arguments for the simulation.
+
+.. code-block::
+
+    roadnet_file = './data/roadnet.txt'
+    flow_file = './data/flow.txt'
+    cfg_file = './cfgs/config.cfg'
+    dataloader = Dataloader(roadnet_file, flow_file, cfg_file)
+
+These arguments point out the path to the configuration file and two data files.
+
+Then, we create our simulator instance with the configuration file. 
+`cbengine.Engine(cfg_file, thread_num)` returns a simulator object.
+
+.. code-block::
+
+    running_step = 300                      # simulation time
+    phase_time = 30                         # traffic signal phase duration time
+    engine = cbengine.Engine(cfg_file, 12)  # create a simulator instance
+
+Finally, we start up the simulation. `engine.next_step()` iterates the engine for one time step
+The length of one time step is 1 second as default. 
+
+Moreover, we can access some information to observe the simulation and operate some traffic elements
+
+- `engine.get_current_time()`: return the current time in the simulation.
+- `engine.set_ttl_phase(intersection_id, phase)`: change the phase of the traffic signal in the intersection.
+- `engine.get_vehicle_count()`: return the current number of vehicles.
+
+
+.. code-block::
+
+    print('Simulation starts ...')
+    start_time = time.time()
+    for step in range(running_step):
+        for intersection in dataloader.intersections.keys():                                            # for each traffic signal
+            engine.set_ttl_phase(intersection, (int(engine.get_current_time()) // phase_time) % 4 + 1)  # change the phase of each traffic signal in the roadnet
+        engine.next_step()                                                                              # iterate the simulation for one time step
+        print(" time step: {}, number of vehicles: {}".format(step, engine.get_vehicle_count()))        # get_vehicle_count() is an API to observe the number of vehicle
+    end_time = time.time()
+    print('Simulation finishes. Runtime: ', end_time - start_time)
+
+
+                                                              
+
+
+Data format
+-------------------
+
+Configuration File Format
+*************************
+
+.. code-block::
+
+    #configuration for simulator
+
+    # Time Parameters
+    # start time of simulation
+    start_time_epoch = 0
+    # the maximum end time of simulation
+    max_time_epoch = 3600
+
+    # Data
+    # road network data file address
+    road_file_addr : ./data/roadnet.txt
+    # traffic flow data file address
+    vehicle_file_addr : ./data/flow.txt
+
+
+    # Log Trace
+    # Log is for visualization only. 
+    report_log_mode : normal
+    report_log_addr : ./log/
+    report_log_rate = 10
+    warning_stop_time_log = 100
+
+
+Normally, four arguments in `Time Parameters` and `Data` is common to be modified. You can change
+the value of these arguments to reassign the setting of your simulation. 
+
+
+Roadnet File Format
+*******************
+
+The road network file contains the following three data sections.
+
+- Intersection section
+    Intersection data consists of identification, location and traffic signal installation information about each intersection. A snippet of intersection dataset is shown below.
+
+    .. code-block::
+
+        92344 // total number of intersections
+        30.2795476000 120.1653304000 25926073 1 //latitude, longitude, inter_id, signalized
+        30.2801771000 120.1664368000 25926074 0
+        ...
+
+
+    The attributes of intersection dataset are described in details as below.
+
+    +--------------------+----------------------+-----------------------------------------------+
+    |Attribute Name      |       Example        |Description                                    |
+    +====================+======================+===============================================+
+    |latitude            |30.279547600          |local latitude                                 |
+    +--------------------+----------------------+-----------------------------------------------+
+    |longitude           |120.1653304000        |local longitude                                |
+    +--------------------+----------------------+-----------------------------------------------+
+    |inter_id            |25926073              |intersection ID                                |
+    +--------------------+----------------------+-----------------------------------------------+
+    |signalized          |1                     |1 if traffic signal is installed, 0 otherwise  |
+    +--------------------+----------------------+-----------------------------------------------+
+
+
+- Road section
+    Road dataset consists information about road segments in the network. In general, there are two directions on each road segment (i.e., dir1 and dir2). A snippet of road dataset is shown as follows.
+
+
+    .. code-block::
+
+        2105 // total number of road segments
+        28571560 4353988632 93.2000000000 20 3 3 1 2
+        1 0 0 0 1 0 0 1 1 // dir1_mov: permissible movements of direction 1
+        1 0 0 0 1 0 0 1 1 // dir2_mov: permissible movements of direction 2
+        28571565 4886970741 170.2000000000 20 3 3 3 4
+        1 0 0 0 1 0 0 1 1
+        1 0 0 0 1 0 0 1 1
+
+    The attributes of road dataset are described in details as below.
+    Direction 1 is <from_inter_id,to_inter_id>. Direction 2 is <to_inter_id,from_inter_id>.
+
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Attribute Name             |       Example         |Description                                                                                                                                                                                                                                |
+    +===========================+=======================+===========================================================================================================================================================================================================================================+
+    |from_inter_id              |28571560               |upstream intersection ID w.r.t. dir1                                                                                                                                                                                                       |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |to_inter_id                |4353988632             |downstream intersection ID w.r.t. dir1                                                                                                                                                                                                     |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |length (m)                 |93.2000000000          |length of road segment                                                                                                                                                                                                                     |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |speed_limit (m/s)          |20                     |speed limit of road segment                                                                                                                                                                                                                |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dir1_num_lane              |3                      |number of lanes of direction 1                                                                                                                                                                                                             |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dir2_num_lane              |3                      |number of lanes of direction 2                                                                                                                                                                                                             |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dir1_id                    |1                      |road segment (edge) ID of direction 1                                                                                                                                                                                                      |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dir2_id                    |2                      |road segment (edge) ID of direction 2                                                                                                                                                                                                      |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dir1_mov                   |1 0 0 0 1 0 0 1 1      |every 3 digits form a permissible movement indicator for a lane of direction 1, 100 indicates a left-turn only inner lane, 010 indicates through only middle lane, 011 indicates a shared through and right-turn outer lane.               |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |dir2_mov                   |1 0 0 0 1 0 0 1 1      |every 3 digits form a lane permissible movement indicator for a lane of direction 2.                                                                                                                                                       |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+
+- Traffic signal section
+    This dataset describes the connectivity between intersection and road segments. Note that, we assume that each intersection has no more than four approaches. The exiting approaches 1 to 4 starting from the northern one and rotating in clockwise direction. Here, -1 indicates that the corresponding approach is missing, which generally indicates a three-leg intersection.
+
+    .. code-block::
+
+        107 // total number of signalized intersections
+        1317137908 724 700 611 609 // inter_id, approach1_id, approach2_id, approach3_id, approach4_id
+        672874599 311 2260 3830 -1 // -1 indicates a three-leg intersection without western approach
+        672879594 341 -1 2012 339
+
+
+    The attributes of road dataset is described in details as below
+
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |Attribute Name             |       Example         |Description                                                                                                                                                                                                                                |
+    +===========================+=======================+===========================================================================================================================================================================================================================================+
+    |inter_id                   |1317137908             |intersection ID                                                                                                                                                                                                                            |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |approach1_id               |  724                  |road segment (edge) ID of northern exiting approach (Road_1 in example)                                                                                                                                                                    |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |approach2_id               |700                    |road segment (edge) ID of eastern exiting approach (Road_3 in example)                                                                                                                                                                     |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |approach3_id               |611                    |road segment (edge) ID of southern exiting approach (Road_5 in example)                                                                                                                                                                    |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+    |approach4_id               |609                    |road segment (edge) ID of western exiting approach (Road_7 in example)                                                                                                                                                                     |
+    +---------------------------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Here is an example 1x1 roadnet ``roadnet.txt`` .
+
+.. code-block:: c
+
+    5 // intersection data
+    30 120 0 1 // latitude, longitude, inter_id, signalized
+    31 120 1 0
+    30 121 2 0
+    29 120 3 0
+    30 119 4 0
+    4 // road data
+    0 1 30 20 3 3 1 2
+    1 0 0 0 1 0 0 0 1 // dir1_mov: permissible movements of direction 1
+    1 0 0 0 1 0 0 0 1 // dir2_mov: permissible movements of direction 2
+    0 2 30 20 3 3 3 4
+    1 0 0 0 1 0 0 0 1
+    1 0 0 0 1 0 0 0 1
+    0 3 30 20 3 3 5 6
+    1 0 0 0 1 0 0 0 1
+    1 0 0 0 1 0 0 0 1
+    0 4 30 20 3 3 7 8
+    1 0 0 0 1 0 0 0 1
+    1 0 0 0 1 0 0 0 1
+    1 // traffic signal data
+    0 1 3 5 7 // inter_id, approach1_id, approach2_id, approach3_id, approach4_id
+
+
+
+Flow File Format
+*******************
+
+Flow file is composed by flows. Each flow is represented as a tuple (*start_time*, *end_time*, *vehicle_interval*, *route*), which means from *start_time* to *end_time*, there will be a vehicle with *route* every *vehicle_interval* seconds. The format of flows contains serval parts:
+
+
+* The first row of flow file is *n*, which means the number of flow.
+
+* The following *3n* rows indicating configuration of each flow. Each flow have 3 configuration lines.
+
+    * The first row consists of *start_time*, *end_time*, *vehicle_interval*.
+
+    * The second row is the number of road segments of route for this flow : *k*.
+
+    * The third row describes the `route` of this flow. Here flow's route is defined by `roads` not `intersections`.
+
+.. code-block:: c
+
+    n
+    flow_1_start_time	flow_1_end_time	flow_1_interval
+    k_1
+    flow_1_route_0	flow_1_route_1	...	flow_1_route_k1
+
+    flow_2_start_time	flow_2_end_time	flow_2_interval
+    k_2
+    flow_2_route_0	flow_2_route_1	...	flow_2_route_k2
+
+    ...
+
+    flow_n_start_time	flow_n_end_time	flow_n_interval
+    k_n
+    flow_n_route_0	flow_n_route_1	...	flow_n_route_k
+
+Here is an example flow file
+
+.. code-block:: c
+
+    12 // n = 12
+    0 100 5 // start_time, end_time, vehicle_interval
+    2 // number of road segments
+    2 3 // road segment IDs
+    0 100 5
+    2
+    2 5
+    0 100 5
+    2
+    2 7
+    0 100 5
+    2
+    4 5
+    0 100 5
+    2
+    4 7
+    0 100 5
+    2
+    4 1
+    0 100 5
+    2
+    6 7
+    0 100 5
+    2
+    6 1
+    0 100 5
+    2
+    6 3
+    0 100 5
+    2
+    8 1
+    0 100 5
+    2
+    8 3
+    0 100 5
+    2
+    8 5
