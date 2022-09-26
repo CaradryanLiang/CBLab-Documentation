@@ -79,7 +79,16 @@ Now, start up the simulation in the container.
 
 Using source code
 ====================
-Our source code is available on `Github <https://github.com/CityBrainLab/CityBrainLab.git>` for Linux. To install CBEngine, unzip the file and 
+Our source code is available on `Github <https://github.com/CityBrainLab/CityBrainLab.git>` for Linux. Run the following
+command to clone our repo:
+
+.. code-block::
+
+    git clone https://github.com/CityBrainLab/CityBrainLab.git
+
+
+
+To install CBEngine, unzip the file and 
 run the following command in the 'CBLab/CBEngine/' folder:
 
 .. code-block::
