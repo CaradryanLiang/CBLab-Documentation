@@ -8,11 +8,11 @@ Here, we demonstrate three pipelines.
 +------------------------------+----------------------------------------------------------------------------------------------------------------------+
 | Pipeline                     | Content                                                                                                              |
 +==============================+======================================================================================================================+
-| Input data transformation\_  | Transform raw road network data to road network inputs and generate traffic flow inputs for simulation accordingly.  |
+| Input data transformation    | Transform raw road network data to road network inputs and generate traffic flow inputs for simulation accordingly.  |
 +------------------------------+----------------------------------------------------------------------------------------------------------------------+
-| Learning driving\_           | Tune driving behaviors of CBEngine according to road observation.                                                    |
+| Learning driving             | Tune driving behaviors of CBEngine according to road observation.                                                    |
 +------------------------------+----------------------------------------------------------------------------------------------------------------------+
-| Learning routing\_           | Learn to generate routes according to raw trajectory data and use it to generate traffic flow inputs for simulation. |
+| Learning routing             | Learn to generate routes according to raw trajectory data and use it to generate traffic flow inputs for simulation. |
 +------------------------------+----------------------------------------------------------------------------------------------------------------------+
 
 
@@ -24,7 +24,6 @@ Input data transformation
 .. image:: ../media/paradigm.png
    :align: center
    :alt: fig_cbdata
-
 
 \
 
@@ -103,17 +102,17 @@ In this section, we demonstrate the process how we learn to generate routes from
 Functions of projects in each folder
 =====================================
 
-+------------------------------+-------------------------------------------------+
-| Folder                       | Function                                        |
-+==============================+=================================================+
-| loss_counter\_               | Count the loss of RNN model and draw the graph  |
-+------------------------------+-------------------------------------------------+
-| RNN             \_           | Train RNN model and generate trajtories         |
-+------------------------------+-------------------------------------------------+
-| roadnet-match\_              | Transfer origin Shenzhen data to formatted data |
-+------------------------------+-------------------------------------------------+
-| roadnet-process\_            | Analyze data and generate RNN train data        |
-+------------------------------+-------------------------------------------------+
++----------------------------+-------------------------------------------------+
+| Folder                     | Function                                        |
++============================+=================================================+
+| loss_counter               | Count the loss of RNN model and draw the graph  |
++----------------------------+-------------------------------------------------+
+| RNN                        | Train RNN model and generate trajtories         |
++----------------------------+-------------------------------------------------+
+| roadnet-match              | Transfer origin Shenzhen data to formatted data |
++----------------------------+-------------------------------------------------+
+| roadnet-process            | Analyze data and generate RNN train data        |
++----------------------------+-------------------------------------------------+
 
 
 Match raw trajectories to the road network
