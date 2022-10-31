@@ -673,9 +673,65 @@ Cover the driving and routing modules in `/src/modules/driving.cc` and `/src/mod
 After that, build the project as the aforementioned installation guidance. 
 
 
-      
+Visualization
+*****************
+
+CBEngine makes use of `yarn` for its visualization. The user interface is available on `Google Drive <https://drive.google.com/file/d/1ez3FDA0HL2XjGqiWgB5JSjbP8F29dXI1/view?usp=sharing>`_.
+
+Install the User Interface
+==============================
+
+Download the file from Googld Drive and unzip it. Install yarn according to the `instruction <https://www.hostinger.com/tutorials/how-to-install-yarn>`_.
+For installation in Windows, simply run the following command.  
+
+.. code-block:: c
+
+    yarn
 
 
+Obtain Visualization Records
+==============================
+
+To visualize the simulation, record files are required. Add the following code line in your simulation loop.
+
+.. code-block:: python
+
+    engine.log_info(os.path.join(log_path, 'time{}.json'.format(int(engine.get_current_time()))))
 
 
+A correct sample is as follows.
 
+.. code-block:: python
+
+    import cbengine
+
+    cfg_file = './config.cfg'
+    intersections = [1, 2, 3, 4, 5, 6]
+    LOG_ADDR = './log' # can be modified
+
+    running_step = 300
+    engine = cbengine.Engine(cfg_file, 12)
+    for step in range(running_step):
+        engine.log_info(os.path.join(LOG_ADDR, 'time{}.json'.format(int(engine.get_current_time()))))
+        for intersection in intersections:
+            engine.set_ttl_phase(intersection, (int(engine.get_current_time()) // 30) % 4 + 1)
+        engine.next_step()
+
+
+Make sure that `report_log_addr` in your configuration file is an available address, consistent with the `LOG_ADDR` in the code, then run the simulation script.
+After the simulation ends, there will be three types of files in the `report_log_addr`: `lightinfo.json`, `roadinfo.json`, `timeX.json` (X is the time). To visualize
+these records, move them to `ui/src/log` in the downloaded user interface.
+
+
+Boot the Visualization
+==============================
+
+Before booting the user interface, modify `this.maxtime` in `ui/src/index.js` (line 14) to the maximum time of your records.
+After that, run the following command in `ui/` to boot the user interface for visualation:
+
+.. code-block:: c
+
+    yarn start
+
+
+`yarn` will then wake up a window to visualize the simulation.
