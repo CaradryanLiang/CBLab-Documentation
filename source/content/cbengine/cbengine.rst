@@ -104,8 +104,8 @@ For installation with source code, we recommend you to create a new environment 
 .. code-block::
 
     conda create -n cblab python=3.8
-	conda activate cblab
-	pip install -r requirments.txt
+    conda activate cblab
+    pip install -r requirments.txt
 
 
 Test the installation
