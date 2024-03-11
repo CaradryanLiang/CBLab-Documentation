@@ -69,7 +69,7 @@ scripts and data for running the simulation:
 
 .. code-block::
 
-    docker run -it -v /path/to/your/CBLab_files:/CBLab_files citybrainlab/open-engine:latest bash
+    docker run -it -v /path/to/your/CBLab_files:/CBLab_files citybrainlab/cbengine:latest bash
 
 
 Now, start up the simulation in the container.
